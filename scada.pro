@@ -5,8 +5,14 @@ DISTFILES += \
 	
 INCLUDEPATH += $$PWD/
 
-HEADERS += 
+HEADERS += \ 
+    generic/ctrlnode.h \
+    generic/terror.h \
+    generic/resalloc.h \
+    generic/autohd.h
 
-SOURCES += 
+SOURCES += \ 
+    generic/terror.cpp \
+    generic/resalloc.cpp
 
 include (xxx/xx.pri)
