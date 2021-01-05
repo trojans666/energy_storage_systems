@@ -67,7 +67,7 @@ void ModSchedul::scanDir(const std::string &Paths, vector<std::string> &files)
     } while(id != (int)string::npos);
 }
 
-bool ModSchedul::checkFile(const std::string &name)
+bool ModSchedul::checkFile(const std::string &iname)
 {
     struct stat file_stat;
     string NameMod;
@@ -90,9 +90,14 @@ bool ModSchedul::checkFile(const std::string &name)
 
     ResAlloc res(nodeRes(),false);
     for(int i_sh=0; i_sh < mSchHD.size(); i_sh++)
-        if(SchHD[i_sh].name == iname)
-            if(file_stat.st_mtime > mSchHD[i_sh].tm) return true;
-            else return false;
+        if(mSchHD[i_sh].name == iname)
+        {
+            if(file_stat.st_mtime > mSchHD[i_sh].tm)
+                return true;
+            else
+                return false;
+        }
+
 
     return true;
 }
@@ -120,7 +125,7 @@ int ModSchedul::libRegister(const std::string &name)
 void ModSchedul::libUnRegister(const std::string &iname)
 {
     ResAlloc res(nodeRes(),true);
-    for(unsigned i_sh = 0; i_sh < SchHD.size(); i_sh++)
+    for(unsigned i_sh = 0; i_sh < mSchHD.size(); i_sh++)
         if(mSchHD[i_sh].name == iname)
         {
             if(mSchHD[i_sh].hd)
@@ -200,7 +205,7 @@ void ModSchedul::libAtt(const std::string &iname, bool full)
                             }
                             //>> Add atached module
                             owner().at(list[i_sub]).at().modAdd(LdMod);
-                            SchHD[i_sh].use.push_back(list[i_sub]+"."+LdMod->modId());
+                            mSchHD[i_sh].use.push_back(list[i_sub]+"."+LdMod->modId());
                             if(full)
                             {
                                 owner().at(list[i_sub]).at().load(true);
@@ -218,10 +223,10 @@ void ModSchedul::libAtt(const std::string &iname, bool full)
                 mSchHD[i_sh].hd = h_lib;
             return;
         }
-    throw TError(nodePath().c_str(),_("SO <%s> is not present!"),iname.c_str());
+    throw TError(nodePath().c_str(),"SO <%s> is not present!",iname.c_str());
 }
 
-void ModSchedul::libDel(const std::string &iname)
+void ModSchedul::libDet(const std::string &iname)
 {
     ResAlloc res(nodeRes(),true);
     for(int i_sh = 0; i_sh < mSchHD.size(); i_sh++)
@@ -256,23 +261,23 @@ void ModSchedul::libDel(const std::string &iname)
             mSchHD[i_sh].hd = NULL;
             return;
         }
-    throw TError(nodePath().c_str(),_("SO <%s> is not present!"),iname.c_str());
+    throw TError(nodePath().c_str(),"SO <%s> is not present!",iname.c_str());
 }
 
 void ModSchedul::libList(vector<std::string> &list)
 {
     ResAlloc res(nodeRes(),false);
     list.clear();
-    for(unsigned i_sh = 0; i_sh < SchHD.size(); i_sh++)
+    for(unsigned i_sh = 0; i_sh < mSchHD.size(); i_sh++)
         list.push_back(mSchHD[i_sh].name);
 }
 
 ModSchedul::SHD ModSchedul::lib(const std::string &iname)
 {
     ResAlloc res(nodeRes(),false);
-    for(unsigned i_sh = 0; i_sh < SchHD.size(); i_sh++)
+    for(unsigned i_sh = 0; i_sh < mSchHD.size(); i_sh++)
         if(mSchHD[i_sh].name == iname)
-            return SchHD[i_sh];
+            return mSchHD[i_sh];
     throw TError(nodePath().c_str(),"SO <%s> is not present!",iname.c_str());
 }
 

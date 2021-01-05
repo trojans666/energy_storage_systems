@@ -39,8 +39,8 @@ public:
 
     void libList(vector<string> &list);
     int libLoad(const string &iname, bool full);
-    int libAtt(const string &name,bool full = false);
-    void libDel(const string &name);
+    void libAtt(const string &name,bool full = false);
+    void libDet(const string &name);
 
 protected:
     void load_();
@@ -54,7 +54,7 @@ private:
 
     vector<SHD> mSchHD;
     ResRW mRes;
-}
+};
 
 
 #endif

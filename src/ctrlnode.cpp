@@ -15,7 +15,7 @@
 CtrlNode::CtrlNode(CtrlNode *iprev)
     :chGrp(NULL)
     ,mUse(0)
-    ,mOi(USHAT_MAX)
+    ,mOi(USHRT_MAX)
 {
     prev.node = iprev;
     prev.grp = -1;
@@ -108,7 +108,7 @@ AutoHD<CtrlNode> CtrlNode::nodeAt(const string &path,int lev,char sep,int off)
     throw TError(nodePath().c_str(),"Node '%s' no present!",s_br.c_str());
 }
 /* 删除节点 */
-void CtrlNode::nodeDel(const string &path,char sep,int flag,bool shDel)
+void CtrlNode::nodeDel(const string &path,char sep,bool shDel)
 {
     AutoHD<CtrlNode> del_n = nodeAt( path, 0, sep );
     int n_grp = del_n.at().prev.grp;
@@ -117,7 +117,7 @@ void CtrlNode::nodeDel(const string &path,char sep,int flag,bool shDel)
 
     del_n = AutoHD<CtrlNode>(del_n.at().prev.node);
 
-    del_n.at().chldDel( n_grp, n_id, -1, flag, shDel );
+    del_n.at().chldDel( n_grp, n_id, -1,shDel );
 }
 
 CtrlNode * CtrlNode::nodePrev(bool noex)
@@ -130,7 +130,7 @@ CtrlNode * CtrlNode::nodePrev(bool noex)
 }
 
 
-void CtrlNode::load(bool force = false) /*如果节点被修改 加载该节点 */
+void CtrlNode::load(bool force) /*如果节点被修改 加载该节点 */
 {
 
 }
@@ -211,7 +211,7 @@ bool CtrlNode::chldPresent(char igr,const string &name)
     return false;
 }
 
-void CtrlNode::chldAdd(char igr,CtrlNode *node,unsigned int pos)
+void CtrlNode::chldAdd(char igr, CtrlNode *node, int pos)
 {
     ResAlloc res(mChildRes,false);
     if( !chGrp || (unsigned char)igr >= chGrp->size() )
@@ -235,7 +235,7 @@ void CtrlNode::chldAdd(char igr,CtrlNode *node,unsigned int pos)
     node->prev.grp = igr;
     if( (*chGrp)[igr].ordered ) /** 排序*/
     {
-        pos = (pos<0||pos>(*chGrp)[igr].elem.size()) ? (*chGrp)[igr].elem.size() : pos;
+        pos = (pos<0||(unsigned int)pos>(*chGrp)[igr].elem.size()) ? (*chGrp)[igr].elem.size() : pos;
         node->mOi = pos;
         for( p = (*chGrp)[igr].elem.begin(); p != (*chGrp)[igr].elem.end(); p++ )
             if( p->second->mOi >= pos ) p->second->mOi++;
@@ -244,7 +244,7 @@ void CtrlNode::chldAdd(char igr,CtrlNode *node,unsigned int pos)
     res.release();
 }
 
-void CtrlNode::chldDel(char igr,const string &name,long tm,int flag,bool shDel)
+void CtrlNode::chldDel(char igr,const string &name,long tm,bool shDel)
 {
     if( tm < 0 )	tm = 2;
     ResAlloc res(mChildRes,false);
@@ -286,7 +286,7 @@ char CtrlNode::grpId(const string &sid)
     return -1;
 }
 
-CtrlNode::GrpEl * CtrlNode::grpAt(char iid)
+CtrlNode::GrpEl &CtrlNode::grpAt(char iid)
 {
     /** 根据iid 返回该 group */
     if( iid < 0 || iid >= grpSize( ) )

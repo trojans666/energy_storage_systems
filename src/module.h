@@ -40,7 +40,7 @@ public:
     class ExpFunc
     {
     public:
-        ExpFunc( const string &iprot, const string &idscr, void (TModule::*iptr)() ) :
+        ExpFunc( const string &iprot, const string &idscr, void (Module::*iptr)() ) :
             prot(iprot), dscr(idscr), ptr(iptr)	{ }
         string prot;		//Prototip
         string dscr;		//Description
@@ -87,7 +87,7 @@ private:
     string mId;
     vector<ExpFunc *> mEfunc; /* export function list */
     static const char *l_info[]; /* list of the present info options */
-}
+};
 
 
 #endif

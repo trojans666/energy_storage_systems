@@ -12,6 +12,8 @@
 
 #include "resalloc.h"
 #include "ctrlnode.h"
+#include "autohd.h"
+#include "subsys.h"
 
 #define vmin(a,b)   ((a) < (b) ? (a) : (b))
 #define vmax(a,b)   ((a) > (b) ? (a) : (b))
@@ -19,7 +21,7 @@
 using std::string;
 using std::map;
 
-class SubSys;
+
 
 class SYS : public CtrlNode
 {
@@ -43,8 +45,8 @@ public:
     int stopFlg() {return mStopFlg;}
 
     int argc_()const {return mArgc;}
-    char **argv() const {return mArgv;}
-    char **envp() const {return mEnvp;}
+    const char **argv()  {return mArgv;}
+    const char **envp()  {return mEnvp;}
 
     const string &id() {return mId;}
     string name() {return mName;}
@@ -70,11 +72,11 @@ public:
 #endif
 
     /** 这个节点中存储的是所有的subsys类,目的是可以直接全局访问 */
-    void list(vector<string> &list) {return chldList(mSubSt,list);}
+    void list(vector<string> &list) { chldList(mSubSt,list);}
     bool present(const string &name) {return chldPresent(mSubSt,name);}
-    void add(SubSys *sub) {chldAdd(mSubSt,sub);}
+    void add(SubSys *sub) {chldAdd(mSubSt,(CtrlNode*)sub);}
     void del(const string &name) {chldDel(mSubSt,name);}
-    AutoHD<SubSys> at(const string &name) {return chldAt(mSubst,name);}
+    AutoHD<SubSys> at(const string &name) {return chldAt(mSubSt,name);}
 
     /** 创建任务 */
     void taskCreate(const string &path,int priority,void *(start_routine)(void *),void *arg);

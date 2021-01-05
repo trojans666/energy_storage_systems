@@ -32,27 +32,27 @@ public:
 
 
     virtual ResRW &UserRes() {return mUserRes;}
-    virtual const string &nodeName() = 0; /*èŠ‚ç‚¹åç§°*/
-    string nodePath(char sep = 0,bool from_root = false); /*èŠ‚ç‚¹è·¯å¾„*/
-    /* èŠ‚ç‚¹åˆ—è¡¨*/
+    virtual const string &nodeName() = 0; /*½ÚµãÃû³Æ*/
+    string nodePath(char sep = 0,bool from_root = false); /*½ÚµãÂ·¾¶*/
+    /*½ÚµãÁĞ±í*/
     void nodeList(vector<string> &list,const string &gid = "");
-    /* è·å–èŠ‚ç‚¹*/
+    /* »ñÈ¡½Úµã*/
     AutoHD<CtrlNode> nodeAt(const string &path,int lev = 0,char sep = 0,int off = 0);
-    /* åˆ é™¤èŠ‚ç‚¹ */
-    void nodeDel(const string &path,char sep = 0,int flag = 0,bool shDel = 0);
+    /* É¾³ı½Úµã */
+    void nodeDel(const string &path, char sep = 0, bool shDel = 0);
 
     CtrlNode *nodePrev(bool noex = false);
 
 
-    /*è¯¥èŠ‚ç‚¹çš„å¼•ç”¨è®¡æ•° */
+    /* ½ÚµãµÄÒıÓÃ¼ÆÊı */
     unsigned nodeUse()  {return mUse;}
-    /* èŠ‚ç‚¹çš„æ’åºé¡ºåº*/
+    /* ½ÚµãµÄÅÅĞò */
     unsigned nodePos() {return mOi;}
 
-    void load(bool force = false); /*å¦‚æœèŠ‚ç‚¹è¢«ä¿®æ”¹ åŠ è½½è¯¥èŠ‚ç‚¹ */
-    void save(); /*å¦‚æœèŠ‚ç‚¹è¢«ä¿®æ”¹ ä¿å­˜è¯¥èŠ‚ç‚¹*/
+    void load(bool force = false); /* ¼ÓÔØ */
+    void save(); /* ±£´æ */
 
-    /**å¼•ç”¨è®¡æ•° */
+    /* ÒıÓÃ¼ÆÊı */
     virtual void refConnect();
     virtual void refDisConnect();
 
@@ -60,28 +60,28 @@ protected:
     struct GrpEl
     {
         string id;
-        bool ordered; /*æ˜¯å¦æ’åº*/
+        bool ordered; /*ÅÅĞò*/
         TMap elem;
     };
 
-    void nodeDelAll(); /*åˆ é™¤æ‰€æœ‰èŠ‚ç‚¹*/
+    void nodeDelAll(); /* É¾³ıËùÓĞ½Úµã */
     void setNodePrev(CtrlNode *node) {prev.node = node;}
 
-    /** å­èŠ‚ç‚¹æ“ä½œ */
+    /* »ñÈ¡×Ó½Úµã */
     virtual AutoHD<CtrlNode> chldAt(char igr,const string &name,const string &user = "");
     void chldList(char igr,vector<string> &list);
 
-    bool chldPresent(char igr,const string &name); /*è¯¥èŠ‚ç‚¹æ˜¯å¦å­˜åœ¨*/
-    void chldAdd(char igr,CtrlNode *node,unsigned int pos = -1);
-    void chldDel(char igr,const string &name,long tm = -1,int flag = 0,bool shDel = false);
+    bool chldPresent(char igr,const string &name); /* ¼ì²é½ÚµãÊÇ·ñ´æÔÚ */
+    void chldAdd(char igr,CtrlNode *node, int pos = -1);
+    void chldDel(char igr, const string &name, long tm = -1, bool shDel = false);
 
-    /** å®¹å™¨ */
+    /** ÈİÆ÷ */
     char grpSize();
     char grpId(const string &sid);
-    GrpEl *grpAt(char id);
+    GrpEl &grpAt(char id);
     unsigned grpAdd(const string &id,bool ordered = false);
 
-    /*åœ¨loadæˆ–saveä¹‹å‰åšç‚¹ä»€ä¹ˆ*/
+    /* ÔÚloadÖĞ±»µ÷ÓÃ */
     virtual void load_() {}
     virtual void save_() {}
 
@@ -90,17 +90,15 @@ private:
     {
         CtrlNode *node;
         char grp;
-    }prev; /*èŠ‚ç‚¹é“¾è¡¨*/
-    ResRW mChildRes; /*å­èŠ‚ç‚¹é”*/
-    ResRW mUserRes; /*ç”¨æˆ·é” */
+    }prev; /* ½ÚµãÁ´±í */
+    ResRW mChildRes; /* ×Ó½ÚµãËø */
+    ResRW mUserRes; /* ÓÃ»§²Ù×÷Ëø */
 
-    /** ä¸€ä¸ª groupä¸‹å¯èƒ½æœ‰å¤šä¸ª å­èŠ‚ç‚¹ æ¯ä¸ªå­èŠ‚ç‚¹å¯èƒ½æœ‰å¤šä¸ªå…ƒç´ */
-    /** æ¯”å¦‚ transportåˆ†ä¸º transport_inå’Œ transport_out ç»„,æ¯ä¸ªç»„ä¸‹æœ‰ serial network can ç­‰å¤šä¸ªå­èŠ‚ç‚¹ */
+    /* Ò»¸ögroup¿ÉÄÜÓĞ¶à¸ö½Úµã Ã¿¸ö½ÚµãÓÖÓĞ¶à¸öÔªËØ */
     vector<GrpEl> *chGrp; /** child groups */
 
-    /*å½“å‰èŠ‚ç‚¹ */
-    unsigned short int mUse; /*å¼•ç”¨è®¡æ•°*/
-    unsigned short int mOi; /*order index æ’åº*/
+    unsigned short int mUse; /* ÒıÓÃ¼ÆÊı */
+    unsigned short int mOi; /*order index ÅÅĞò */
 };
 
 

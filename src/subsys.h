@@ -8,14 +8,13 @@
 #include <string>
 #include <vector>
 
-#include "sys.h"
-#include "ctrlnode.h"
 #include "module.h"
 
 using std::string;
 using std::vector;
 
-class Module;
+class ModSchedul;
+class SYS;
 
 class SubSys : public CtrlNode
 {
@@ -51,6 +50,6 @@ private:
     int mMod; /*grp id */
     string mId;
     string mName;
-}
+};
 
 #endif

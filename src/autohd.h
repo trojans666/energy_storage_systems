@@ -26,7 +26,7 @@ public:
     {
         operator=(hd);
     }
-    /** 利用dynamic_cast 将hd_s转换为 ORes1 用在类与类转换中*/
+    /** 利用dynamic_cast 将hd_s转换为 ORes1 用在类与类转换中 */
     template<typename ORes1> AutoHD(const AutoHD<ORes1> &hd_s,bool nosafe=false):mNode(NULL)
     {
         if(hd_s.freeStat())
