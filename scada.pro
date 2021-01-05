@@ -1,18 +1,30 @@
 TEMPLATE = app
 
+QT -= gui
+
 DISTFILES += \
-	config.xml 
-	
-INCLUDEPATH += $$PWD/
+        config.xml
 
 HEADERS += \ 
-    generic/ctrlnode.h \
-    generic/terror.h \
-    generic/resalloc.h \
-    generic/autohd.h
+    src/autohd.h \
+    src/ctrlnode.h \
+    src/modschedul.h \
+    src/module.h \
+    src/resalloc.h \
+    src/subsys.h \
+    src/sys.h \
+    src/terror.h
+
 
 SOURCES += \ 
-    generic/terror.cpp \
-    generic/resalloc.cpp
+    src/ctrlnode.cpp \
+    src/modschedul.cpp \
+    src/module.cpp \
+    src/resalloc.cpp \
+    src/subsys.cpp \
+    src/sys.cpp \
+    src/terror.cpp
 
-include (xxx/xx.pri)
+
+
+include (modules/modules.pri)

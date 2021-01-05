@@ -284,7 +284,7 @@ int ModSchedul::libLoad(const std::string &iname, bool full)
     //> 获取所有lib库
     scanDir(iname, files);
 
-    //> 添加处理
+    //> 库添加处理
     for(int i_f = 0; i_f < files.size(); i_f++)
     {
         int i_sh;
