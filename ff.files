@@ -1,0 +1,16 @@
+core/modschedul.cpp
+core/modschedul.h
+core/module.cpp
+core/module.h
+core/subsys.cpp
+core/subsys.h
+core/sys.cpp
+core/sys.h
+generic/autohd.h
+generic/ctrlnode.cpp
+generic/ctrlnode.h
+generic/resalloc.cpp
+generic/resalloc.h
+generic/terror.cpp
+generic/terror.h
+main.cpp

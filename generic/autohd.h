@@ -19,7 +19,7 @@ public:
     AutoHD(ORes *node,const string &who=""):mNode(node)
     {
         if(mNode)
-            mNode->AHDConnect();
+            mNode->refConnect();
     }
     /** 拷贝构造 */
     AutoHD(const AutoHD &hd):mNode(NULL)
@@ -39,7 +39,7 @@ public:
             if(!mNode)
                 throw TError("AutoHD","Type casting error!");
         }
-        mNode->AHDConnect();
+        mNode->refConnect();
     }
 
     ~AutoHD() {free_hd();}
@@ -55,13 +55,13 @@ public:
         free_hd();
         mNode = hd.mNode;
         if(mNode)
-            mNode->AHDConnect();
+            mNode->refConnect();
     }
     /** 释放资源 */
     void free_hd()
     {
         if(mNode)
-            mNode->AHDDisConnect();
+            mNode->refDisConnect();
         mNode = NULL;
     }
 
