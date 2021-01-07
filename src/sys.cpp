@@ -501,6 +501,8 @@ void SYS::load_()
     if(first_load)
     {
         add(new SubDB());
+
+        first_load = false;
     }
 }
 void SYS::save_() /*当节点被save之前做点什么*/

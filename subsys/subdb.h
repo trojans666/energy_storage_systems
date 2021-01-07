@@ -17,6 +17,10 @@ using std::vector;
 #define SUBDB_ID    "DB"
 #define SUBDB_NAME  "Data Bases"
 
+class DataBase;
+class ModDB;
+class SubDB;
+
 /* 代表某个数据库中的表 */
 class Table : public CtrlNode
 {
@@ -24,7 +28,7 @@ public:
     Table(const string &name);
     virtual ~Table();
 
-    cosnt string &name() {return mName;}
+    const string &name() {return mName;}
     DataBase &owner();
 private:
     const string &nodeName() {return mName;}
@@ -37,7 +41,7 @@ class DataBase : public CtrlNode
 public:
     DataBase(const string &iid);
     virtual ~DataBase();
-
+    /* 数据库的打开和关闭 */
     virtual void enable() {}
     virtual void disable() {}
 
@@ -50,7 +54,7 @@ public:
     AutoHD<Table> at(const string &name) {return chldAt(mTbl,name);}
 
     /* sql request */
-    virtual void sqlReq(const string &req,vector< vecotr<string> > *tbl = NULL,bool intoTran = false)
+    virtual void sqlReq(const string &req,vector< vector<string> > *tbl = NULL)
     {
         throw TError(nodePath().c_str(),"Function <%s> no support!","sqlReq");
     }
@@ -59,6 +63,10 @@ public:
 
     void setName(const string &vl) {mName = vl;}
     string name();
+    /* 数据库的路径 */
+    void setDBPath(const string &path) {mPath = path;}
+    string path() {return mPath;}
+
 protected:
     virtual Table *openTable(const string &table,bool create)
     {
@@ -73,6 +81,7 @@ private:
     int mTbl;
     string mId;
     string mName;
+    string mPath;
 };
 /* 代表的是一个数据库类型 如 mysql sqlite3 */
 class ModDB : public Module
@@ -96,7 +105,7 @@ protected:
 
 private:
     const string &nodeName() {return mId;}
-    virtual SubDB *openBD(const string &id);
+    virtual DataBase *openBD(const string &id) {throw TError(nodePath().c_str(),"Function <%s> no support!","openBD");}
     int m_db;
     string mId;
 

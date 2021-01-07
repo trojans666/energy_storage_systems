@@ -15,6 +15,7 @@ using std::vector;
 
 class ModSchedul;
 class SYS;
+class Module;
 
 class SubSys : public CtrlNode
 {

@@ -61,7 +61,7 @@ public:
     static void sighandler(int signal);
     static long long curTime(); /** 当前的时间 */
 
-    AutoHD<TBDS> db() {return at(SUBDB_ID);} /** 数据库*/
+    AutoHD<SubDB> db() {return at(SUBDB_ID);} /** 数据库*/
 
 #if 0
     AutoHD<TUIS> ui() {return at("UI");}
