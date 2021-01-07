@@ -52,6 +52,10 @@
 		<Unit filename="../src/sys.h" />
 		<Unit filename="../src/terror.cpp" />
 		<Unit filename="../src/terror.h" />
+		<Unit filename="../subsys/subdb.cpp" />
+		<Unit filename="../subsys/subdb.h" />
+		<Unit filename="../subsys/subui.cpp" />
+		<Unit filename="../subsys/subui.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

@@ -45,7 +45,7 @@ SYS::SYS(int argi, char **argb, char **env)
 
 SYS::~SYS()
 {
-
+    del(SUBDB_ID);
 }
 
 string SYS::host()
@@ -496,7 +496,12 @@ void * SYS::str2addr( const string &str )
 
 void SYS::load_()
 {
+    static bool first_load = true;
 
+    if(first_load)
+    {
+        add(new SubDB());
+    }
 }
 void SYS::save_() /*当节点被save之前做点什么*/
 {

@@ -61,10 +61,12 @@ public:
     static void sighandler(int signal);
     static long long curTime(); /** 当前的时间 */
 
+    AutoHD<TBDS> db() {return at(SUBDB_ID);} /** 数据库*/
+
 #if 0
     AutoHD<TUIS> ui() {return at("UI");}
     AutoHD<TArchive> archive() {return at("Archive");} /** 存储*/
-    AutoHD<TBDS> db() {return at("BD");} /** 数据库*/
+
     AutoHD<TDAQS> daq() {return at("DAQ");} /** 采集 */
     AutoHD<TProtocol> protocol() {return at("Protocol");} /** 协议 */
     AutoHD<TTransport> transport() {return at("Transport");} /** 传输介质 */
