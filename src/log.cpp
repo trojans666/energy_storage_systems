@@ -4,10 +4,10 @@
 #include <syslog.h>
 #endif // __linux__
 
+#include <iostream>
+
 #include "sys.h"
 #include "log.h"
-
-Log mLog;
 
 Log::Log():mMessLevel(0),mLogDir(DIR_STDOUT)
 {
@@ -19,14 +19,10 @@ Log::~Log()
     closelog();
 }
 
-Log Log::root()
-{
-    return mLog;
-}
 
 void Log::setMessLevel(int level)
 {
-    mMessLeve = vmax(0,vmin(5,level));
+    mMessLevel = vmax(0,vmin(5,level));
 }
 
 void Log::setLogDirect(int dir)
@@ -47,9 +43,9 @@ void Log::put(const char *cat,char level,const char *fmt,...)
     if( abs(level) < messLevel() )
         return;
 
-    long long ctm = SYS::curTime();
-    string s_mess = SYS::int2str(level) + "|" + categ + " | " + mess;
-
+    //long long ctm = SYS::curTime();
+    string s_mess = SYS::int2str(level) + " [" + cat + "] " + mess;
+    //std::cout << s_mess.c_str() <<std::endl;
     if( mLogDir & DIR_SYSLOG)
     {
         int level_sys;
@@ -84,13 +80,15 @@ void Log::put(const char *cat,char level,const char *fmt,...)
         }
         syslog(level_sys,"%s",s_mess.c_str());
     }
+    printf("## %d\n",mLogDir);
     if( mLogDir & DIR_STDOUT )
-        fprintf(stdout,"%s \n",s_mess.c_str());
+        printf("jfsklfjs1111\n");
+        //fprintf(stdout,"%s \n",s_mess.c_str());
     if( mLogDir & DIR_STDERR)
         fprintf(stderr,"%s \n",s_mess.c_str());
 
-    if( (mLogDir & DIR_ARCHIVE) && SYS->present("Archive") )
-        SYS->archive().at().messPut( ctm/1000000, ctm%1000000, categ, level, mess );
+   // if( (mLogDir & DIR_ARCHIVE) && sys->present("Archive") )
+   //     sys->archive().at().messPut( ctm/1000000, ctm%1000000, categ, level, mess );
 }
 
 void Log::load()

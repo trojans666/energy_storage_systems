@@ -31,6 +31,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add directory="../src" />
+			<Add directory="../subsys" />
 		</Compiler>
 		<Linker>
 			<Add library="pthread" />

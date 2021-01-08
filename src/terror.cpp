@@ -20,7 +20,7 @@ TError::TError()
 
 }
 
-TError::TError(const char *icat, const char *fmt)
+TError::TError(const char *icat, const char *fmt,...)
 {
     char str[256]; /*action!!! */
     va_list argptr;
@@ -34,7 +34,7 @@ TError::TError(const char *icat, const char *fmt)
     Mess = str;
 }
 
-TError::TError(int icod, const char *icat, const char *fmt)
+TError::TError(int icod, const char *icat, const char *fmt,...)
 {
     char str[256];
     va_list argptr;

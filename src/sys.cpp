@@ -11,14 +11,20 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/utsname.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #endif // __linux__
 
+#include "log.h"
 #include "sys.h"
 
 SYS *sys;
+Log *mLog;
 
 SYS::SYS(int argi, char **argb, char **env)
-    :mArgc(argi)
+    :mStopFlg(-1)
+    ,mArgc(argi)
     ,mArgv((const char **)argb)
     ,mEnvp((const char **)env)
     ,mUser("root")
@@ -27,10 +33,10 @@ SYS::SYS(int argi, char **argb, char **env)
     ,mName("Scada_Name")
     ,mIconDir("pic/")
     ,mModDir("modules/")
-    ,mStopFlg(-1)
 {
     sys = this;
     mSubSt = grpAdd("sub_",true); /*true 时会排序 */
+    mLog = new Log();
 
     /** set signal */
     signal(SIGINT,sighandler);
@@ -41,11 +47,15 @@ SYS::SYS(int argi, char **argb, char **env)
     signal(SIGCHLD,sighandler);
     signal(SIGFPE,sighandler);
     signal(SIGSEGV,sighandler);
+
+
 }
 
 SYS::~SYS()
 {
     del(SUBDB_ID);
+    if(mLog)
+        delete mLog;
 }
 
 string SYS::host()
@@ -66,16 +76,21 @@ bool SYS::cfgFileLoad()
     int cf_sz = lseek(hd,0,SEEK_END);
     if(cf_sz > 0)
     {
-        lseek(hd,SEEK_SET);
+        lseek(hd,0,SEEK_SET);
         char *buf = (char *)malloc(cf_sz + 1);
-        read(hd,buf,cf_sz);
+        int ss = read(hd,buf,cf_sz);
+        if(ss < 0)
+        {
+            free(buf);
+            return false;
+        }
         buf[cf_sz] = 0;
         s_buf = buf;
         free(buf);
     }
     close(hd);
 
-
+    return true;
 }
 
 /** 创建任务 */
@@ -197,6 +212,44 @@ void SYS::taskCreate(const string &path,int priority,void *(start_routine)(void 
         throw msg;
     }
 }
+
+void *SYS::taskWrap(void *stas)
+{
+    STask *tsk = (STask *)stas;
+
+
+    void *(*wTask) (void *) = tsk->task;
+    void *wTaskArg = tsk->taskArg;
+
+
+    int policy;
+    struct sched_param param;
+    pthread_getschedparam(pthread_self(), &policy, &param);
+    tsk->policy = policy;
+    //tsk->prior = param.sched_priority;
+
+
+    if(tsk->policy != SCHED_RR && tsk->prior > 0 && setpriority(PRIO_PROCESS,tsk->tid,-tsk->prior/5) != 0) tsk->prior = 0;
+    tsk->thr = pthread_self();
+
+
+    sigset_t mask;
+    sigemptyset(&mask);
+    sigaddset(&mask, SIGUSR1);
+    pthread_sigmask(SIG_BLOCK, &mask, NULL);
+
+
+    void *rez = NULL;
+    rez = wTask(wTaskArg);
+
+    tsk->flgs |= STask::FinishTask;
+
+    //> Remove task object for detached
+    if(tsk->flgs & STask::Detached)	sys->taskDestroy(tsk->path);
+
+    return rez;
+}
+
 void SYS::taskDestroy(const string &path,bool *endrunCntr)
 {
     map<string,STask>::iterator it;
@@ -250,10 +303,10 @@ void SYS::taskDestroy(const string &path,bool *endrunCntr)
 
 void SYS::setTaskName(const char *name)
 {
-    if(name.empty())
+    if(!name)
         return ;
 
-    prctl(PR_SET_NAME,name.c_str());
+    prctl(PR_SET_NAME,name);
 }
 
 void SYS::taskSleep(long long per_ms)
@@ -306,7 +359,7 @@ string SYS::strSepParse( const string &path, int level, char sep, int *off)
     return "";
 }
 
-string SYS::strParse( const string &str, int level, const string &sep, int *off, bool mergeSepSymb)
+string SYS::strParse( const string &path, int level, const string &sep, int *off, bool mergeSepSymb)
 {
     unsigned int an_dir = off ? *off : 0;
     int t_lev = 0;
@@ -643,9 +696,9 @@ int SYS::start()
 
         }
 
-    unsigned int i_cnt = 1;
+
     mStopFlg = 0;
-    while(!mStopSignal)
+    while(!mStopFlg)
     {
         /* do something */
     }

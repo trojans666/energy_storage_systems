@@ -8,14 +8,14 @@
 using std::string;
 using std::vector;
 
-#define mess_debug(cat,fmt,args...) Log::root().put(cat,TMess::Debug,fmt,##args)
-#define mess_info(cat,fmt,args...) Log::root().put(cat,TMess::Info,fmt,##args)
-#define mess_note(cat,fmt,args...) Log::root().put(cat,TMess::Notice,fmt,##args)
-#define mess_warning(cat,fmt,args...) Log::root().put(cat,TMess::Warning,fmt,##args)
-#define mess_err(cat,fmt,args...) Log::root().put(cat,TMess::Error,fmt,##args)
-#define mess_crit(cat,fmt,args...) Log::root().put(cat,TMess::Crit,fmt,##args)
-#define mess_alert(cat,fmt,args...) Log::root().put(cat,TMess::Alert,fmt,##args)
-#define mess_emerg(cat,fmt,args...) Log::root().put(cat,TMess::Emerg,fmt,##args)
+#define mess_debug(cat,fmt,args...) mLog->put(cat,Log::Debug,fmt,##args)
+#define mess_info(cat,fmt,args...) mLog->put(cat,Log::Info,fmt,##args)
+#define mess_note(cat,fmt,args...) mLog->put(cat,Log::Notice,fmt,##args)
+#define mess_warning(cat,fmt,args...) mLog->put(cat,Log::Warning,fmt,##args)
+#define mess_err(cat,fmt,args...) mLog->put(cat,Log::Error,fmt,##args)
+#define mess_crit(cat,fmt,args...) mLog->put(cat,Log::Crit,fmt,##args)
+#define mess_alert(cat,fmt,args...) mLog->put(cat,Log::Alert,fmt,##args)
+#define mess_emerg(cat,fmt,args...) mLog->put(cat,Log::Emerg,fmt,##args)
 
 class Log
 {
@@ -36,8 +36,6 @@ public:
     Log();
     ~Log();
 
-    static Log root();
-
     void load();
     void save();
 
@@ -47,12 +45,14 @@ public:
     void setLogDirect(int dir);
     void setMessLevel(int level);
 
-    void put(const char *cat,unsigned char level,const char *fmt,...);
+    void put(const char *cat, char level,const char *fmt,...);
 private:
-    unsigned char mMessLeve;
+    unsigned char mMessLevel;
     unsigned char mLogDir;
     Log(Log &other) {}
-    Log &operator=(Log &other) {}
+    Log &operator=(Log &other) {return *this;}
 };
+
+extern Log *mLog;
 
 #endif // __LOG_H

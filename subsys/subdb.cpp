@@ -1,4 +1,4 @@
-
+#include "sys.h"
 #include "subdb.h"
 
 SubDB::SubDB():SubSys(SUBDB_ID,SUBDB_NAME,true)
@@ -11,15 +11,15 @@ SubDB::~SubDB()
 
 }
 
-void SubDB::dbList(vector<string> &lst)
+void SubDB::dbList(vector<string> &ls)
 {
     vector<string> tdb_ls,db_ls;
     modList(tdb_ls);
 
-    for(int i_tp = 0;i_tp < tdb_ls.size();i_tp++)
+    for(unsigned int i_tp = 0;i_tp < tdb_ls.size();i_tp++)
     {
         sys->db().at().at(tdb_ls[i_tp]).at().list(db_ls);
-        for(int i_db = 0;i_db < db_ls.size();i_db++)
+        for(unsigned int i_db = 0;i_db < db_ls.size();i_db++)
         {
             ls.push_back(tdb_ls[i_tp] + "." + db_ls[i_db]);
         }

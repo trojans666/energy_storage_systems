@@ -130,8 +130,8 @@ public:
 
     ResRW &nodeRes() {return mRes;}
 protected:
-    void load_();
-    void save_();
+    void load_() {}
+    void save_() {}
 
 private:
     ResRW mRes;

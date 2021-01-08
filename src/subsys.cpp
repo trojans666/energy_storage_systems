@@ -1,4 +1,4 @@
-#include "
+
 #include "subsys.h"
 
 SubSys::SubSys(const char *id, const char *name, bool modi)
@@ -53,7 +53,7 @@ void SubSys::modDel( const string &name )
 {
     if( !subModule() )
         throw TError(nodePath().c_str(),"The subsystem is not modular!");
-    mess_info(nodePath().c_str(),"Disconnect module <%s>!",name.c_str());
+    //mess_info(nodePath().c_str(),"Disconnect module <%s>!",name.c_str());
     chldDel(mMod,name);
 }
 
@@ -77,8 +77,8 @@ void SubSys::subStart( )
     }
     catch(TError err)
     {
-        mess_err(err.getCat().c_str(),"%s",err.getMsg().c_str());
-        mess_err(nodePath().c_str(),"Start module '%s' error.",list[i_m].c_str());
+       // mess_err(err.getCat().c_str(),"%s",err.getMsg().c_str());
+       // mess_err(nodePath().c_str(),"Start module '%s' error.",list[i_m].c_str());
     }
 
     mStart = true;
@@ -93,8 +93,8 @@ void SubSys::subStop( )
     try{ modAt(list[i_m]).at().modStop( ); }
     catch(TError err)
     {
-        mess_err(err.getCat().c_str(),"%s",err.getMsg().c_str());
-        mess_err(nodePath().c_str(),"Stop module '%s' error.",list[i_m].c_str());
+       // mess_err(err.getCat().c_str(),"%s",err.getMsg().c_str());
+       // mess_err(nodePath().c_str(),"Stop module '%s' error.",list[i_m].c_str());
     }
 
     mStart = false;

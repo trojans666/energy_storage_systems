@@ -32,7 +32,7 @@ public:
 
 
 protected:
-    void load_();
+    void load_() {}
 private:
 
 };

@@ -10,11 +10,15 @@
 #include <string>
 #include <map>
 
+#include "terror.h"
 #include "resalloc.h"
 #include "ctrlnode.h"
 #include "autohd.h"
 #include "subsys.h"
 #include "modschedul.h"
+#include "subdb.h"
+#include "subui.h"
+
 
 #define vmin(a,b)   ((a) < (b) ? (a) : (b))
 #define vmax(a,b)   ((a) > (b) ? (a) : (b))

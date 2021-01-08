@@ -89,7 +89,7 @@ bool ModSchedul::checkFile(const std::string &iname)
     else dlclose(h_lib);*/
 
     ResAlloc res(nodeRes(),false);
-    for(int i_sh=0; i_sh < mSchHD.size(); i_sh++)
+    for(unsigned int i_sh=0; i_sh < mSchHD.size(); i_sh++)
         if(mSchHD[i_sh].name == iname)
         {
             if(file_stat.st_mtime > mSchHD[i_sh].tm)
@@ -140,7 +140,7 @@ void ModSchedul::libAtt(const std::string &iname, bool full)
 {
     char *dlErr = NULL;
     ResAlloc res(nodeRes(),true);
-    for(int i_sh = 0; i_sh < mSchHD.size(); i_sh++)
+    for(unsigned int i_sh = 0; i_sh < mSchHD.size(); i_sh++)
         if(mSchHD[i_sh].name == iname)
         {
             if(mSchHD[i_sh].hd)
@@ -187,20 +187,20 @@ void ModSchedul::libAtt(const std::string &iname, bool full)
                         //>> Check type module version
                         if( AtMod.t_ver != owner().at(list[i_sub]).at().subVer() )
                         {
-                            mess_warning(nodePath().c_str(),"%s for type <%s> doesn't support module version: %d!",
-                                         AtMod.id.c_str(),AtMod.type.c_str(),AtMod.t_ver);
+                           // mess_warning(nodePath().c_str(),"%s for type <%s> doesn't support module version: %d!",
+                           //              AtMod.id.c_str(),AtMod.type.c_str(),AtMod.t_ver);
                             break;
                         }
                         //>> Check module present
                         if( owner().at(list[i_sub]).at().modPresent(AtMod.id) )
-                            mess_warning(nodePath().c_str(),"Module <%s> is already present!",AtMod.id.c_str());
+                           ;// mess_warning(nodePath().c_str(),"Module <%s> is already present!",AtMod.id.c_str());
                         else
                         {
                             //>> Attach new module
                             Module *LdMod = (attach)( AtMod, iname );
                             if(LdMod == NULL)
                             {
-                                mess_warning(nodePath().c_str(),"Attach module <%s> error!",AtMod.id.c_str());
+                               // mess_warning(nodePath().c_str(),"Attach module <%s> error!",AtMod.id.c_str());
                                 break;
                             }
                             //>> Add atached module
@@ -229,7 +229,7 @@ void ModSchedul::libAtt(const std::string &iname, bool full)
 void ModSchedul::libDet(const std::string &iname)
 {
     ResAlloc res(nodeRes(),true);
-    for(int i_sh = 0; i_sh < mSchHD.size(); i_sh++)
+    for(unsigned int i_sh = 0; i_sh < mSchHD.size(); i_sh++)
         if(mSchHD[i_sh].name == iname)
         {
             if(!mSchHD[i_sh].hd)
@@ -237,7 +237,7 @@ void ModSchedul::libDet(const std::string &iname)
             try
             {
                 //> Stop all modules
-                for(int i_m = 0; i_m < mSchHD[i_sh].use.size(); i_m++)
+                for(unsigned int i_m = 0; i_m < mSchHD[i_sh].use.size(); i_m++)
                     owner().at(SYS::strSepParse(mSchHD[i_sh].use[i_m],0,'.')).at().
                             modAt(SYS::strSepParse(mSchHD[i_sh].use[i_m],1,'.')).at().modStop();
                 //> Delete all modules
@@ -252,7 +252,7 @@ void ModSchedul::libDet(const std::string &iname)
             {
                 //owner().at(SchHD[i_sh]->use[0].mod_sub).at().modAt(SchHD[i_sh]->use[0].n_mod).at().load();
                 //> Start all modules
-                for(int i_m = 0; i_m < mSchHD[i_sh].use.size(); i_m++)
+                for(unsigned int i_m = 0; i_m < mSchHD[i_sh].use.size(); i_m++)
                     owner().at(SYS::strSepParse(mSchHD[i_sh].use[i_m],0,'.')).at().
                             modAt(SYS::strSepParse(mSchHD[i_sh].use[i_m],1,'.')).at().modStart();
                 throw;
@@ -290,9 +290,9 @@ int ModSchedul::libLoad(const std::string &iname, bool full)
     scanDir(iname, files);
 
     //> ø‚ÃÌº”¥¶¿Ì
-    for(int i_f = 0; i_f < files.size(); i_f++)
+    for(unsigned int i_f = 0; i_f < files.size(); i_f++)
     {
-        int i_sh;
+        unsigned int i_sh;
 
         ResAlloc res(nodeRes(),false);
         for(i_sh = 0; i_sh < mSchHD.size(); i_sh++)
@@ -309,8 +309,8 @@ int ModSchedul::libLoad(const std::string &iname, bool full)
             }
             catch(TError err)
             {
-                mess_warning(err.cat.c_str(),"%s",err.mess.c_str());
-                mess_warning(nodePath().c_str(),"Can't detach library <%s>.",files[i_f].c_str());
+               // mess_warning(err.cat.c_str(),"%s",err.mess.c_str());
+               // mess_warning(nodePath().c_str(),"Can't detach library <%s>.",files[i_f].c_str());
                 continue;
             }
         }
@@ -324,7 +324,7 @@ int ModSchedul::libLoad(const std::string &iname, bool full)
             }
             catch(TError err)
             {
-                mess_warning(err.cat.c_str(),"%s",err.mess.c_str());
+               // mess_warning(err.cat.c_str(),"%s",err.mess.c_str());
             }
         }
     }
