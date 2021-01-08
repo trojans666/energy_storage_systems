@@ -23,7 +23,7 @@ ModSchedul::ModSchedul()
 
 int ModSchedul::loadLibS()
 {
-
+    return libLoad(sys->modDir(),false);
 }
 
 

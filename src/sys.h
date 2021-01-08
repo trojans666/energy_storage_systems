@@ -14,6 +14,7 @@
 #include "ctrlnode.h"
 #include "autohd.h"
 #include "subsys.h"
+#include "modschedul.h"
 
 #define vmin(a,b)   ((a) < (b) ? (a) : (b))
 #define vmax(a,b)   ((a) > (b) ? (a) : (b))
@@ -38,21 +39,24 @@ public:
 
     SYS(int argi,char **argb,char **env);
     ~SYS();
-
+    /* 系统启动 */
     int start();
     void stop();
-
+    /* 是否停止标志 */
     int stopFlg() {return mStopFlg;}
 
     int argc_()const {return mArgc;}
-    const char **argv()  {return mArgv;}
-    const char **envp()  {return mEnvp;}
-
+    const char **argv_()  {return mArgv;}
+    const char **envp_()  {return mEnvp;}
+    /* 站点id 名称 用户名 主机名 */
     const string &id() {return mId;}
     string name() {return mName;}
     void setName(const string &vl) {mName = vl;}
     string user() {return mUser;}
     string host();
+
+    bool cfgFileLoad(); /* 配置文件加载 */
+
     string icoDir() {return mIconDir;} /** 获取图片路径*/
     string modDir() {return mModDir;} /** 子模块路径 */
     /** 配置文件路径 */
@@ -62,7 +66,8 @@ public:
     static long long curTime(); /** 当前的时间 */
 
     AutoHD<SubDB> db() {return at(SUBDB_ID);} /** 数据库*/
-
+    AutoHD<ModSchedul> modSchedul() {return at(MODSCHEDUL_ID);} /** 调度 */
+    AutoHD<SubUI> ui() {return at(SUBUI_ID);} /** 界面操作入口 */
 #if 0
     AutoHD<TUIS> ui() {return at("UI");}
     AutoHD<TArchive> archive() {return at("Archive");} /** 存储*/
@@ -115,7 +120,7 @@ public:
 
 protected:
     void load_();
-    void save_(); /*当节点被save之前做点什么*/
+    void save_(); /**/
 
 private:
     /** 任务私有数据 */

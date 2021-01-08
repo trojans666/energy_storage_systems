@@ -40,6 +40,8 @@
 		<Unit filename="../src/autohd.h" />
 		<Unit filename="../src/ctrlnode.cpp" />
 		<Unit filename="../src/ctrlnode.h" />
+		<Unit filename="../src/log.cpp" />
+		<Unit filename="../src/log.h" />
 		<Unit filename="../src/modschedul.cpp" />
 		<Unit filename="../src/modschedul.h" />
 		<Unit filename="../src/module.cpp" />
