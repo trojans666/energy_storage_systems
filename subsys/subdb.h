@@ -1,3 +1,6 @@
+/**
+数据库类
+*/
 #ifndef __SUBDB_H
 #define __SUBDB_H
 
@@ -97,6 +100,7 @@ public:
     /* 这里的open是把 sqlite mysql 这类module加载到grp中  */
     void open(const string &iid);
     void close(const string &iid,bool erase = false) {chldDel(m_db,iid,-1,erase);}
+    /* 访问数据库 */
     AutoHD<DataBase> at(const string &name) {return chldAt(m_db,name);}
 
     SubDB &owner();

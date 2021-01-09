@@ -1,3 +1,7 @@
+/**
+界面操作类
+*/
+
 #ifndef __SUBUI_H
 #define __SUBUI_H
 
