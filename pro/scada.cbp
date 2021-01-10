@@ -61,6 +61,7 @@
 		<Unit filename="../subsys/subprotocol.h" />
 		<Unit filename="../subsys/subspecial.cpp" />
 		<Unit filename="../subsys/subspecial.h" />
+		<Unit filename="../subsys/subtransport.cpp" />
 		<Unit filename="../subsys/subtransport.h" />
 		<Unit filename="../subsys/subui.cpp" />
 		<Unit filename="../subsys/subui.h" />
