@@ -58,6 +58,7 @@
 		<Unit filename="../subsys/subarchive.h" />
 		<Unit filename="../subsys/subdb.cpp" />
 		<Unit filename="../subsys/subdb.h" />
+		<Unit filename="../subsys/subprotocol.cpp" />
 		<Unit filename="../subsys/subprotocol.h" />
 		<Unit filename="../subsys/subspecial.cpp" />
 		<Unit filename="../subsys/subspecial.h" />
