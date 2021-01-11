@@ -40,9 +40,9 @@ OBJDIR_RELEASE = obj/Release
 DEP_RELEASE = 
 OUT_RELEASE = bin/Release/scada
 
-OBJ_DEBUG = $(OBJDIR_DEBUG)/__/subsys/subui.o $(OBJDIR_DEBUG)/__/subsys/subdb.o $(OBJDIR_DEBUG)/__/src/terror.o $(OBJDIR_DEBUG)/__/src/sys.o $(OBJDIR_DEBUG)/__/src/subsys.o $(OBJDIR_DEBUG)/__/main.o $(OBJDIR_DEBUG)/__/src/resalloc.o $(OBJDIR_DEBUG)/__/src/module.o $(OBJDIR_DEBUG)/__/src/modschedul.o $(OBJDIR_DEBUG)/__/src/log.o $(OBJDIR_DEBUG)/__/src/ctrlnode.o
+OBJ_DEBUG = $(OBJDIR_DEBUG)/__/subsys/subui.o $(OBJDIR_DEBUG)/__/subsys/subtransport.o $(OBJDIR_DEBUG)/__/subsys/subspecial.o $(OBJDIR_DEBUG)/__/subsys/subprotocol.o $(OBJDIR_DEBUG)/__/subsys/subdb.o $(OBJDIR_DEBUG)/__/src/xml.o $(OBJDIR_DEBUG)/__/src/terror.o $(OBJDIR_DEBUG)/__/main.o $(OBJDIR_DEBUG)/__/src/sys.o $(OBJDIR_DEBUG)/__/src/subsys.o $(OBJDIR_DEBUG)/__/src/resalloc.o $(OBJDIR_DEBUG)/__/src/module.o $(OBJDIR_DEBUG)/__/src/modschedul.o $(OBJDIR_DEBUG)/__/src/log.o $(OBJDIR_DEBUG)/__/src/ctrlnode.o
 
-OBJ_RELEASE = $(OBJDIR_RELEASE)/__/subsys/subui.o $(OBJDIR_RELEASE)/__/subsys/subdb.o $(OBJDIR_RELEASE)/__/src/terror.o $(OBJDIR_RELEASE)/__/src/sys.o $(OBJDIR_RELEASE)/__/src/subsys.o $(OBJDIR_RELEASE)/__/main.o $(OBJDIR_RELEASE)/__/src/resalloc.o $(OBJDIR_RELEASE)/__/src/module.o $(OBJDIR_RELEASE)/__/src/modschedul.o $(OBJDIR_RELEASE)/__/src/log.o $(OBJDIR_RELEASE)/__/src/ctrlnode.o
+OBJ_RELEASE = $(OBJDIR_RELEASE)/__/subsys/subui.o $(OBJDIR_RELEASE)/__/subsys/subtransport.o $(OBJDIR_RELEASE)/__/subsys/subspecial.o $(OBJDIR_RELEASE)/__/subsys/subprotocol.o $(OBJDIR_RELEASE)/__/subsys/subdb.o $(OBJDIR_RELEASE)/__/src/xml.o $(OBJDIR_RELEASE)/__/src/terror.o $(OBJDIR_RELEASE)/__/main.o $(OBJDIR_RELEASE)/__/src/sys.o $(OBJDIR_RELEASE)/__/src/subsys.o $(OBJDIR_RELEASE)/__/src/resalloc.o $(OBJDIR_RELEASE)/__/src/module.o $(OBJDIR_RELEASE)/__/src/modschedul.o $(OBJDIR_RELEASE)/__/src/log.o $(OBJDIR_RELEASE)/__/src/ctrlnode.o
 
 all: debug release
 
@@ -64,20 +64,32 @@ out_debug: before_debug $(OBJ_DEBUG) $(DEP_DEBUG)
 $(OBJDIR_DEBUG)/__/subsys/subui.o: ../subsys/subui.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c ../subsys/subui.cpp -o $(OBJDIR_DEBUG)/__/subsys/subui.o
 
+$(OBJDIR_DEBUG)/__/subsys/subtransport.o: ../subsys/subtransport.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c ../subsys/subtransport.cpp -o $(OBJDIR_DEBUG)/__/subsys/subtransport.o
+
+$(OBJDIR_DEBUG)/__/subsys/subspecial.o: ../subsys/subspecial.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c ../subsys/subspecial.cpp -o $(OBJDIR_DEBUG)/__/subsys/subspecial.o
+
+$(OBJDIR_DEBUG)/__/subsys/subprotocol.o: ../subsys/subprotocol.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c ../subsys/subprotocol.cpp -o $(OBJDIR_DEBUG)/__/subsys/subprotocol.o
+
 $(OBJDIR_DEBUG)/__/subsys/subdb.o: ../subsys/subdb.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c ../subsys/subdb.cpp -o $(OBJDIR_DEBUG)/__/subsys/subdb.o
 
+$(OBJDIR_DEBUG)/__/src/xml.o: ../src/xml.c
+	$(CC) $(CFLAGS_DEBUG) $(INC_DEBUG) -c ../src/xml.c -o $(OBJDIR_DEBUG)/__/src/xml.o
+
 $(OBJDIR_DEBUG)/__/src/terror.o: ../src/terror.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c ../src/terror.cpp -o $(OBJDIR_DEBUG)/__/src/terror.o
+
+$(OBJDIR_DEBUG)/__/main.o: ../main.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c ../main.cpp -o $(OBJDIR_DEBUG)/__/main.o
 
 $(OBJDIR_DEBUG)/__/src/sys.o: ../src/sys.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c ../src/sys.cpp -o $(OBJDIR_DEBUG)/__/src/sys.o
 
 $(OBJDIR_DEBUG)/__/src/subsys.o: ../src/subsys.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c ../src/subsys.cpp -o $(OBJDIR_DEBUG)/__/src/subsys.o
-
-$(OBJDIR_DEBUG)/__/main.o: ../main.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c ../main.cpp -o $(OBJDIR_DEBUG)/__/main.o
 
 $(OBJDIR_DEBUG)/__/src/resalloc.o: ../src/resalloc.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c ../src/resalloc.cpp -o $(OBJDIR_DEBUG)/__/src/resalloc.o
@@ -117,20 +129,32 @@ out_release: before_release $(OBJ_RELEASE) $(DEP_RELEASE)
 $(OBJDIR_RELEASE)/__/subsys/subui.o: ../subsys/subui.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c ../subsys/subui.cpp -o $(OBJDIR_RELEASE)/__/subsys/subui.o
 
+$(OBJDIR_RELEASE)/__/subsys/subtransport.o: ../subsys/subtransport.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c ../subsys/subtransport.cpp -o $(OBJDIR_RELEASE)/__/subsys/subtransport.o
+
+$(OBJDIR_RELEASE)/__/subsys/subspecial.o: ../subsys/subspecial.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c ../subsys/subspecial.cpp -o $(OBJDIR_RELEASE)/__/subsys/subspecial.o
+
+$(OBJDIR_RELEASE)/__/subsys/subprotocol.o: ../subsys/subprotocol.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c ../subsys/subprotocol.cpp -o $(OBJDIR_RELEASE)/__/subsys/subprotocol.o
+
 $(OBJDIR_RELEASE)/__/subsys/subdb.o: ../subsys/subdb.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c ../subsys/subdb.cpp -o $(OBJDIR_RELEASE)/__/subsys/subdb.o
 
+$(OBJDIR_RELEASE)/__/src/xml.o: ../src/xml.c
+	$(CC) $(CFLAGS_RELEASE) $(INC_RELEASE) -c ../src/xml.c -o $(OBJDIR_RELEASE)/__/src/xml.o
+
 $(OBJDIR_RELEASE)/__/src/terror.o: ../src/terror.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c ../src/terror.cpp -o $(OBJDIR_RELEASE)/__/src/terror.o
+
+$(OBJDIR_RELEASE)/__/main.o: ../main.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c ../main.cpp -o $(OBJDIR_RELEASE)/__/main.o
 
 $(OBJDIR_RELEASE)/__/src/sys.o: ../src/sys.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c ../src/sys.cpp -o $(OBJDIR_RELEASE)/__/src/sys.o
 
 $(OBJDIR_RELEASE)/__/src/subsys.o: ../src/subsys.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c ../src/subsys.cpp -o $(OBJDIR_RELEASE)/__/src/subsys.o
-
-$(OBJDIR_RELEASE)/__/main.o: ../main.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c ../main.cpp -o $(OBJDIR_RELEASE)/__/main.o
 
 $(OBJDIR_RELEASE)/__/src/resalloc.o: ../src/resalloc.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c ../src/resalloc.cpp -o $(OBJDIR_RELEASE)/__/src/resalloc.o

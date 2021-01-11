@@ -18,6 +18,7 @@ using std::string;
 #define SUBTRANSPORT_NAME   "Transports"
 
 class ModTransport;
+class SubTransport;
 
 class TransportIn : public CtrlNode
 {
@@ -59,7 +60,7 @@ private:
     string mDscr;
     string mAddr;
     string mProt;
-    string mStart;
+    bool mStart;
 };
 
 /******** transport out **************/
@@ -106,7 +107,7 @@ private:
     string mName;
     string mDscr;
     string mAddr;
-    string mStart;
+    bool mStart;
 
     ResRW nRes;
 };
@@ -179,7 +180,7 @@ public:
 	void extHostList(const string &user,vector<string> &list);
 	bool extHostPresent(const string &user,const string &id);
 
-	AutoHD<TransportOut> extHost(Transport::ExtHost host,const string &pref = "" );
+	AutoHD<TransportOut> extHost(SubTransport::ExtHost host,const string &pref = "" );
 	ExtHost extHostGet(const string &user,const string &id);
 	void extHostSet(const ExtHost &host);
 	void extHostDel(const string &user,const string &id);

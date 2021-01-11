@@ -3,7 +3,7 @@
 #include "subprotocol.h"
 
 
-SubProtocol::SubProtcol() : SubSys(SUBPOTOCOL_ID,SUBPROTOCOL_NAME,true)
+SubProtocol::SubProtocol() : SubSys(SUBPROTOCOL_ID,SUBPROTOCOL_NAME,true)
 {
 
 }

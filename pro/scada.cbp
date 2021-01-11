@@ -55,6 +55,10 @@
 		<Unit filename="../src/sys.h" />
 		<Unit filename="../src/terror.cpp" />
 		<Unit filename="../src/terror.h" />
+		<Unit filename="../src/xml.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/xml.h" />
 		<Unit filename="../subsys/subarchive.h" />
 		<Unit filename="../subsys/subdb.cpp" />
 		<Unit filename="../subsys/subdb.h" />

@@ -7,6 +7,8 @@
 
 #include <string>
 
+#include "subsys.h"
+
 using std::string;
 
 #define SUBSPECIAL_VER      1
@@ -29,7 +31,7 @@ public:
     SubSpecial();
     int subVer()  {return SUBSPECIAL_VER;}
 
-    AutoHD<ModSchedul> at(const string &iid) {return modAt(iid);}
+    AutoHD<ModSpecial> at(const string &iid) {return modAt(iid);}
 protected:
     void load_() {}
     void save_() {}

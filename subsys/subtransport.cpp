@@ -271,7 +271,7 @@ void TransportIn::save_( )
 //************************************************
 //* TTransportOut                                *
 //************************************************
-TTransportOut::TTransportOut( const string &iid, const string &idb, TElem *el ) :
+TransportOut::TransportOut( const string &iid) :
     run_st(false), mId(""), mName(""),
     mDscr(""), mAddr(""), mStart(true)
 {
@@ -294,7 +294,7 @@ string TransportOut::getStatus( )
     return startStat() ? "Started. " : "Stoped. ";
 }
 
-void TTransportOut::load_( )
+void TransportOut::load_( )
 {
 
 }

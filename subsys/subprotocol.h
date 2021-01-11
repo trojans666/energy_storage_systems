@@ -6,6 +6,7 @@
 #define __SUBPROTOCOL_H
 
 #include <string>
+#include "subsys.h"
 
 using std::string;
 
@@ -14,6 +15,7 @@ using std::string;
 #define SUBPROTOCOL_NAME    "Transport Protocols"
 
 class TransportOut;
+class ModProtocol;
 
 class ProtocolIn : public CtrlNode
 {
@@ -23,7 +25,7 @@ public:
 
     const string &name()    {return mName;}
     const string &srcTr()   {return mSrcTr;}
-    void setSrcTr(const string &vl) {mSrcTl = vl;}
+    void setSrcTr(const string &vl) {mSrcTr = vl;}
     /* process input messages */
     virtual bool mess(const string &request,string &answer,const string &sender)
     {
@@ -54,7 +56,7 @@ public:
     AutoHD<ProtocolIn> at(const string &name) {return chldAt(m_pr,name);}
 
     /* output protocol */
-    virtual void outMess(Transport &tro) {throw TError(nodePath(.c_str(),"Function <%s> no support!","outMess");}
+    virtual void outMess(TransportOut &tro) {throw TError(nodePath().c_str(),"Function <%s> no support!","outMess");}
 protected:
     virtual ProtocolIn *in_open(const string &name) {throw TError(nodePath().c_str(),"Function <%s> no support!","in_open");}
 private:
