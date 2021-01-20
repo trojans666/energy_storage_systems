@@ -44,11 +44,11 @@ DOM将文档中的所有都看作节点node>element
 #		include <stddef.h>
 #	endif
 #else
-//#   include <cctype>
-//#   include <climits>
-//#   include <cstdio>
-//#   include <cstdlib>
-//#   include <cstring>
+#   include <cctype>
+#   include <climits>
+#   include <cstdio>
+#   include <cstdlib>
+#   include <cstring>
 #endif
 #include <stdint.h>
 
@@ -2188,4 +2188,3 @@ private:
 #endif
 
 #endif // TINYXML2_INCLUDED
-

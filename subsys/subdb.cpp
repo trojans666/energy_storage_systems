@@ -1,4 +1,5 @@
 #include "sys.h"
+#include "stropt.h"
 #include "subdb.h"
 
 SubDB::SubDB():SubSys(SUBDB_ID,SUBDB_NAME,true)
@@ -31,9 +32,9 @@ AutoHD<Table> SubDB::open(const string &bdn,bool create)
     AutoHD<Table> tbl;
     try
     {
-        string bd_t = SYS::strSepParse(bdn,0,'.');
-        string bd_n = SYS::strSepParse(bdn,1,'.');
-        string bd_tbl = SYS::strSepParse(bdn,2,'.');
+        string bd_t = StrOpt::strSepParse(bdn,0,'.');
+        string bd_n = StrOpt::strSepParse(bdn,1,'.');
+        string bd_tbl = StrOpt::strSepParse(bdn,2,'.');
 
         if(! at(bd_t).at().at(bd_n).at().openStat(bd_tbl))
         {
@@ -52,9 +53,9 @@ void SubDB::close(const string &bdn,bool del)
 {
     try
     {
-        string bd_t = SYS::strSepParse(bdn,0,'.');
-        string bd_n = SYS::strSepParse(bdn,1,'.');
-        string bd_tbl = SYS::strSepParse(bdn,2,'.');
+        string bd_t = StrOpt::strSepParse(bdn,0,'.');
+        string bd_n = StrOpt::strSepParse(bdn,1,'.');
+        string bd_tbl = StrOpt::strSepParse(bdn,2,'.');
 
         if(at(bd_t).at().at(bd_n).at().openStat(bd_tbl) &&
            at(bd_t).at().at(bd_n).at().at(bd_tbl).at().nodeUse() == 0)

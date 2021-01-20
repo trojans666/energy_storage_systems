@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<root>
+    <!-- 站id-->
+    <station name="xx">
+        <!-- 参数 -->
+        <prm id="LogLevel"> 2 </prm>
+        <!-- percall 最小周期 1s-->
+        <prm id="PerCallPeriod">1</prm>
+    </station>
+</root>

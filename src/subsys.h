@@ -40,8 +40,8 @@ public:
     AutoHD<Module> modAt(const string &name);
 
     SYS &owner();
-    /** 是否已经启动 substart */
-    bool subStartStat() {return mStart;}
+    /* 周期执行 */
+    virtual void perCall(unsigned int timeout);
 protected:
     bool mStart;
 private:

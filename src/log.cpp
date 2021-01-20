@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-#include "sys.h"
+#include "stropt.h"
 #include "log.h"
 
 Log::Log():mMessLevel(0),mLogDir(DIR_STDOUT)
@@ -44,7 +44,7 @@ void Log::put(const char *cat,char level,const char *fmt,...)
         return;
 
     //long long ctm = SYS::curTime();
-    string s_mess = SYS::int2str(level) + " [" + cat + "] " + mess;
+    string s_mess = StrOpt::int2str(level) + " [" + cat + "] " + mess;
     //std::cout << s_mess.c_str() <<std::endl;
     if( mLogDir & DIR_SYSLOG)
     {

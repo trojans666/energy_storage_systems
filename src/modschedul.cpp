@@ -13,6 +13,7 @@
 #endif
 
 #include "sys.h"
+#include "stropt.h"
 #include "modschedul.h"
 
 ModSchedul::ModSchedul()
@@ -238,13 +239,13 @@ void ModSchedul::libDet(const std::string &iname)
             {
                 //> Stop all modules
                 for(unsigned int i_m = 0; i_m < mSchHD[i_sh].use.size(); i_m++)
-                    owner().at(SYS::strSepParse(mSchHD[i_sh].use[i_m],0,'.')).at().
-                            modAt(SYS::strSepParse(mSchHD[i_sh].use[i_m],1,'.')).at().modStop();
+                    owner().at(StrOpt::strSepParse(mSchHD[i_sh].use[i_m],0,'.')).at().
+                            modAt(StrOpt::strSepParse(mSchHD[i_sh].use[i_m],1,'.')).at().modStop();
                 //> Delete all modules
                 while(mSchHD[i_sh].use.size())
                 {
-                    owner().at(SYS::strSepParse(mSchHD[i_sh].use[0],0,'.')).at().
-                            modDel(SYS::strSepParse(mSchHD[i_sh].use[0],1,'.'));
+                    owner().at(StrOpt::strSepParse(mSchHD[i_sh].use[0],0,'.')).at().
+                            modDel(StrOpt::strSepParse(mSchHD[i_sh].use[0],1,'.'));
 
                     mSchHD[i_sh].use.erase(mSchHD[i_sh].use.begin());
                 }
@@ -253,8 +254,8 @@ void ModSchedul::libDet(const std::string &iname)
                 //owner().at(SchHD[i_sh]->use[0].mod_sub).at().modAt(SchHD[i_sh]->use[0].n_mod).at().load();
                 //> Start all modules
                 for(unsigned int i_m = 0; i_m < mSchHD[i_sh].use.size(); i_m++)
-                    owner().at(SYS::strSepParse(mSchHD[i_sh].use[i_m],0,'.')).at().
-                            modAt(SYS::strSepParse(mSchHD[i_sh].use[i_m],1,'.')).at().modStart();
+                    owner().at(StrOpt::strSepParse(mSchHD[i_sh].use[i_m],0,'.')).at().
+                            modAt(StrOpt::strSepParse(mSchHD[i_sh].use[i_m],1,'.')).at().modStart();
                 throw;
             }
             dlclose(mSchHD[i_sh].hd);

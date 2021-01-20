@@ -72,6 +72,8 @@ public:
 
     SubSys &owner();
 
+    virtual void perCall(unsigned int timeout) {}
+
 protected:
     /* register export function */
     void modFuncReg(ExpFunc *func){mEfunc.push_back(func);}

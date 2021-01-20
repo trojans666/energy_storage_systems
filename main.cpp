@@ -5,28 +5,22 @@
 
 int main(int argc,char *argv[],char *envp[])
 {
-#if 0
+
     int rez = 0;
 
     try
     {
         sys = new SYS(argc,argv,envp);
-       // sys->load();
+        sys->load();
+        /* 调用所有 substart,每个substart会调用内部所有的modstart */
+        rez = sys->start();
 
-       // rez = sys->start();
-
-       // delete sys;
+        delete sys;
     }
     catch(TError err)
     {
 
     }
 
-   // return rez;
-#endif // 0
-    sys = new SYS(argc,argv,envp);
-    printf("jfdsklfjsl");
-    mess_debug("ss","kkkkk");
-    mess_info("xx","jfdslkjfdslk");
-
+   return rez;
 }

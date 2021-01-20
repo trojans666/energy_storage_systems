@@ -99,3 +99,23 @@ void SubSys::subStop( )
 
     mStart = false;
 }
+
+void SubSys::perCall(unsigned int timeout)
+{
+    if(!subModule())
+        return ;
+    vector<string> list;
+    modList(list);
+
+    for(unsigned int i_m = 0;i_m < list.size();i_m++)
+    {
+        try
+        {
+            modAt(list[i_m]).at().perCall(timeout);
+        }
+        catch(TError &err)
+        {
+
+        }
+    }
+}

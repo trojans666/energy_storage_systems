@@ -4,6 +4,7 @@
 		<Project filename="mod_db_sqlite.cbp" />
 		<Project filename="mod_tr_serial.cbp" />
 		<Project filename="mod_tr_socket.cbp" />
+		<Project filename="mod_ui_qt.cbp" />
 		<Project filename="scada.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>

@@ -8,7 +8,7 @@
 #include <stdarg.h>
 #include <limits.h>
 
-#include "sys.h"
+#include "stropt.h"
 #include "terror.h"
 #include "ctrlnode.h"
 
@@ -89,8 +89,8 @@ void CtrlNode::nodeList(vector<string> &list,const string &gid)
 /* 获取节点*/
 AutoHD<CtrlNode> CtrlNode::nodeAt(const string &path,int lev,char sep,int off)
 {
-    string s_br = sep ? SYS::strDecode(SYS::strSepParse(path,lev,sep,&off),SYS::PathEl) :
-            SYS::pathLev(path,lev,true,&off);
+    string s_br = sep ? StrOpt::strDecode(StrOpt::strSepParse(path,lev,sep,&off),StrOpt::PathEl) :
+            StrOpt::pathLev(path,lev,true,&off);
     if( s_br.empty() )
     {
         return this;
@@ -218,7 +218,7 @@ void CtrlNode::chldAdd(char igr, CtrlNode *node, int pos)
         throw TError(nodePath().c_str(),"Group of childs %d error!",igr);
 
     TMap::iterator p;
-    if( SYS::strNoSpace(node->nodeName()).empty() )
+    if( StrOpt::strNoSpace(node->nodeName()).empty() )
     {
         delete node;
         throw TError(nodePath().c_str(),"Add child id is empty!");
